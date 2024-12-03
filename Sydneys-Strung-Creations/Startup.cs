@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Sydneys_Strung_Creations.Data;
 
 namespace Sydneys_Strung_Creations
@@ -19,7 +21,7 @@ namespace Sydneys_Strung_Creations
         {
 
             //DbContext configuration
-            services.AddDbContext<AppDbContext>();
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
             services.AddControllersWithViews();
         }
