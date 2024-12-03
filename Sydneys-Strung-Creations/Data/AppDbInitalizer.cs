@@ -23,6 +23,13 @@ namespace Sydneys_Strung_Creations.Data
                             ProductName = "Black and Red Cross Bracelet",
                             ProductDescription = "A braclet following the cross template in black, read, and clear beads.",
                             JewleryCategory = JewleryCategory.Bracelet
+                        },
+                        new gallary_listing
+                        {
+                            JewleryPicturePath = "/images/black-red-heart-bracelet.jpg",
+                            ProductName = "Black and Red Heart Bracelet",
+                            ProductDescription = "A metal link bracelet with a magnetic heart clasp.",
+                            JewleryCategory = JewleryCategory.Bracelet
                         }
                     });
                     context.SaveChanges();
