@@ -58,6 +58,9 @@ namespace Sydneys_Strung_Creations
                     pattern: "{controller=Movies}/{action=Index}/{id?}");
             });
 
+            //Seed Database
+            AppDbInitalizer.Seed(app);
+
           
         }
     }
