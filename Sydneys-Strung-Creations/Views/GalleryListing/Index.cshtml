@@ -1,54 +1,44 @@
 ﻿@* Define Model *@
 @model IEnumerable<gallary_listing>
 
-@* Define View *@
+@* Define Title *@
 @{
-    ViewData["Title"] = "Gallery of All Jewlery";
+    ViewData["Title"] = "Gallery of All Jewelry";
 }
 
 @* Write Code *@
 <div class="row">
-    <div class="col-md-8 offset-md-3">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayNameFor(model => model.JewleryPicturePath)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProductName)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProductDescription)</th>
-                    <th>@Html.DisplayNameFor(model => model.JewleryCategory)</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class = "align-middle">
-                            <img class="rounded-circle"
-                                 src="@Url.Content(item.JewleryPicturePath)"
-                                 alt="@item.ProductName" 
-                            style="max-width: 150px;" />
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.ProductName)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.ProductDescription)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.JewleryCategory)
-                        </td>
-                        <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.JewleryCategory)
-                        </td>
-                        <td class="align-middle">
-                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit </a> |
-                            <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Details </a> |
-                            <a class="btn btn-danger text-white"><i class="bi bi-trash"></i>Delete </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="col-md-12 text-center">
+        <h1>Gallery of All Jewelry</h1>
     </div>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 text-center mb-4">
+            <!-- Icon and Name -->
+            <div>
+                <img src="@Url.Content(item.JewleryPicturePath)"
+                     alt="@item.ProductName"
+                     style="width: 200px; height: 200px; object-fit: contain; cursor: pointer; margin-bottom: 10px;"
+                     data-bs-toggle="collapse"
+                     data-bs-target="#details-@item.ProductName.Replace(" ", "-")"
+                     aria-expanded="false"
+                     aria-controls="details-@item.ProductName.Replace(" ", "-")" />
+                <h5>@item.ProductName</h5>
+            </div>
+            <!-- Expandable Details -->
+            <div id="details-@item.ProductName.Replace(" ", "-")" class="collapse">
+                <p class="mt-2">@item.ProductDescription</p>
+                <p><strong>Category:</strong> @item.JewleryCategory</p>
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-center gap-2">
+                    <a class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Edit</a>
+                    <a class="btn btn-outline-info btn-sm"><i class="bi bi-eye"></i> Details</a>
+                    <a class="btn btn-danger btn-sm text-white"><i class="bi bi-trash"></i> Delete</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
