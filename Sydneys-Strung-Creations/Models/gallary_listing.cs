@@ -16,5 +16,7 @@ namespace Sydneys_Strung_Creations.Models
         public string ProductDescription { get; set; }
         [Display(Name = "Category")]
         public JewleryCategory JewleryCategory { get; set; }
+        [Display(Name = "Primary Color")]
+        public FocalColor FocalColor { get; set; }
     }
 }
