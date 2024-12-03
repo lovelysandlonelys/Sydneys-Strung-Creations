@@ -12,12 +12,10 @@ namespace Sydneys_Strung_Creations.Data
                 var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
                 context.Database.EnsureCreated();
 
-                //Gallery Listings
-                if (!context.gallary_listing.Any())
+                // Making a list og gallery listings to seed
+                var galleryListings = new List<gallary_listing>
                 {
-                    context.gallary_listing.AddRange(new List<gallary_listing>
-                    {
-                        new gallary_listing
+                    new gallary_listing
                         {
                             JewleryPicturePath = "/images/black-red-cross-bracelet.jpg",
                             ProductName = "Black and Red Cross Bracelet",
@@ -51,15 +49,7 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/blue-bird-necklace-2.jpg",
-                            ProductName = "Blue Bird Necklace",
-                            ProductDescription = "A necklace with light blue, dark blue, and white beads and silver hardware.There are five silver birds dangling at various points throughout the necklace",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Blue
-                        },
-                        new gallary_listing
-                        {
-                            JewleryPicturePath = "/images/blue-cross-bracelet-set.jpg",
+                            JewleryPicturePath = "/images/blue-corss-bracelet-set.jpg",
                             ProductName = "Blue Cross Bracelets",
                             ProductDescription = "Two cross style bracelets in various shades of blue and white.",
                             JewleryCategory = JewleryCategory.Bracelet,
@@ -187,14 +177,6 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/gold-rose-necklace-2.jpg",
-                            ProductName = "Roses and Pearls Necklace",
-                            ProductDescription = "A necklace with gold hardware and red beads. There are bearl beads and red rose flowers at various places.",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Red
-                        },
-                        new gallary_listing
-                        {
                             JewleryPicturePath = "/images/green-sword-necklace.jpg",
                             ProductName = "Green Sword Necklace",
                             ProductDescription = "A necklace with silver hardware and green and silver beads. The centerpeice is a silver sword charm.",
@@ -203,23 +185,7 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/green-sword-necklace-2.jpg",
-                            ProductName = "Green Sword Necklace",
-                            ProductDescription = "A necklace with silver hardware and green and silver beads. The centerpeice is a silver sword charm.",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Green
-                        },
-                        new gallary_listing
-                        {
-                            JewleryPicturePath = "/images/lilllypad-necklace.jpg",
-                            ProductName = "Lillypad Necklace",
-                            ProductDescription = "A necklace with green and pink beads and silver hardware. The necklace has many loops of green beads going around the central pink strand, ad danglin gpink flowers in the front.",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Pink
-                        },
-                        new gallary_listing
-                        {
-                            JewleryPicturePath = "/images/lilllypad-necklace-2.jpg",
+                            JewleryPicturePath = "/images/lillypad-necklace.jpg",
                             ProductName = "Lillypad Necklace",
                             ProductDescription = "A necklace with green and pink beads and silver hardware. The necklace has many loops of green beads going around the central pink strand, ad danglin gpink flowers in the front.",
                             JewleryCategory = JewleryCategory.Necklace,
@@ -307,14 +273,6 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/purple-acorn-necklace-2.jpg",
-                            ProductName = "Purple Pinecone Necklace",
-                            ProductDescription = "A necklace with purple beads and bronze hardware featuring acorn and pinecone charms.",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Purple
-                        },
-                        new gallary_listing
-                        {
                             JewleryPicturePath = "/images/purple-gold-necklace.jpg",
                             ProductName = "Purple Gold Necklace",
                             ProductDescription = "A necklace with purple and pink beads and gold hardware featuring some flower dangles.",
@@ -331,14 +289,6 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/purple-grate-necklace-2.jpg",
-                            ProductName = "Purple Ladder Necklace",
-                            ProductDescription = "A necklace with purple beads adone in the ladder style.",
-                            JewleryCategory = JewleryCategory.Necklace,
-                            FocalColor = FocalColor.Purple
-                        },
-                        new gallary_listing
-                        {
                             JewleryPicturePath = "/images/purple-heart-bracelet.jpg",
                             ProductName = "Purple Heart Bracelet",
                             ProductDescription = "A bracelet in the circle syle with hearts as the connecting beads, mainly silver with purple accents.",
@@ -347,7 +297,7 @@ namespace Sydneys_Strung_Creations.Data
                         },
                         new gallary_listing
                         {
-                            JewleryPicturePath = "/images/red-black-necklace.jpg",
+                            JewleryPicturePath = "/images/red-black-heart-necklace.jpg",
                             ProductName = "Vampire Necklace",
                             ProductDescription = "A necklace with red beads and black hardware. The centerpeice is a black heart wich also serves as a magnetic clasp.",
                             JewleryCategory = JewleryCategory.Necklace,
@@ -385,15 +335,35 @@ namespace Sydneys_Strung_Creations.Data
                             JewleryCategory = JewleryCategory.Necklace,
                             FocalColor = FocalColor.Red
                         }
-                    });
-                    context.SaveChanges();
+                };
+
+                //Gallery Listings
+                foreach (var newListing in galleryListings)
+                {
+                    var existingListing = context.gallary_listing.FirstOrDefault(x => x.ProductName == newListing.ProductName);
+
+                    if (existingListing != null)
+                    {
+                        existingListing.JewleryPicturePath = newListing.JewleryPicturePath;
+                        existingListing.ProductDescription = newListing.ProductDescription;
+                        existingListing.JewleryCategory = newListing.JewleryCategory;
+                        existingListing.FocalColor = newListing.FocalColor;
+                    }
+                    else
+                    {
+                        context.gallary_listing.Add(newListing);
+                    }
                 }
+                context.SaveChanges();
                 //Template Listings
+                
+                
                 if (!context.jewlery_template.Any())
                 {
 
                 }
-            }
+
+            }//Applicaiton Builder Scope
         }
     }
 }

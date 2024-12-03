@@ -13,10 +13,37 @@
     </div>
 </div>
 
-<div class="row">
+<!-- Filter Options -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <label for="categoryFilter" class="form-label"><strong>Filter by Category</strong></label>
+        <select id="categoryFilter" class="form-select">
+            <option value="">All Categories</option>
+            @foreach (var category in Model.Select(m => m.JewleryCategory).Distinct())
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="colorFilter" class="form-label"><strong>Filter by Focal Color</strong></label>
+        <select id="colorFilter" class="form-select">
+            <option value="">All Colors</option>
+            @foreach (var color in Model.Select(m => m.FocalColor).Distinct())
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+    </div>
+</div>
+
+<!-- Gallery of Jewelry -->
+<div class="row" id="gallery">
     @foreach (var item in Model)
     {
-        <div class="col-md-3 text-center mb-4">
+        <div class="col-md-3 text-center mb-4 jewelry-item"
+             data-category="@item.JewleryCategory"
+             data-color="@item.FocalColor">
             <!-- Icon and Name -->
             <div>
                 <img src="@Url.Content(item.JewleryPicturePath)"
@@ -42,3 +69,35 @@
         </div>
     }
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryFilter = document.getElementById('categoryFilter');
+        const colorFilter = document.getElementById('colorFilter');
+        const galleryItems = document.querySelectorAll('.jewelry-item');
+
+        function filterGallery() {
+            const selectedCategory = categoryFilter.value.toLowerCase();
+            const selectedColor = colorFilter.value.toLowerCase();
+
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category').toLowerCase();
+                const itemColor = item.getAttribute('data-color').toLowerCase();
+
+                const matchesCategory = !selectedCategory || itemCategory === selectedCategory;
+                const matchesColor = !selectedColor || itemColor === selectedColor;
+
+                // Show or hide based on filters
+                if (matchesCategory && matchesColor) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Attach event listeners
+        categoryFilter.addEventListener('change', filterGallery);
+        colorFilter.addEventListener('change', filterGallery);
+    });
+</script>
