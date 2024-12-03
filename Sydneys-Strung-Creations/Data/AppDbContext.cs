@@ -10,5 +10,6 @@ namespace Sydneys_Strung_Creations.Data
         }
         public DbSet<gallary_listing> gallary_listing { get; set; }
         public DbSet<jewlery_template> jewlery_template { get; set; }
+        public DbSet<order_form> order_forms { get; set; }
     }
 }
