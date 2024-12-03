@@ -15,16 +15,17 @@ namespace Sydneys_Strung_Creations.Data
                 //Gallery Listings
                 if (!context.gallary_listing.Any())
                 {
-                    context.gallary_listing.AddRange(new List<gallary_listing>()
+                    context.gallary_listing.AddRange(new List<gallary_listing>
                     {
-                        new gallary_listing()
+                        new gallary_listing
                         {
-                            JewleryPictureURL = "blah",
-                            ProductName = "help",
-                            ProductDescription = "uhg",
+                            JewleryPicturePath = "/images/black-red-cross-bracelet.jpg",
+                            ProductName = "Black and Red Cross Bracelet",
+                            ProductDescription = "A braclet following the cross template in black, read, and clear beads.",
                             JewleryCategory = JewleryCategory.Bracelet
                         }
                     });
+                    context.SaveChanges();
                 }
                 //Template Listings
                 if (!context.jewlery_template.Any())

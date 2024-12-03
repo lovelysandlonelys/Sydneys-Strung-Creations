@@ -8,9 +8,13 @@ namespace Sydneys_Strung_Creations.Models
     {
         [Key]
         public int Id { get; set; }
-        public string JewleryPictureURL { get; set; }
+        [Display(Name = "Picture")]
+        public string JewleryPicturePath { get; set; }
+        [Display(Name = "Product Name")]
         public string ProductName { get; set; }
+        [Display(Name = "Description")]
         public string ProductDescription { get; set; }
+        [Display(Name = "Category")]
         public JewleryCategory JewleryCategory { get; set; }
     }
 }
