@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sydneys_Strung_Creations.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sydneys_Strung_Creations.Models
 {
@@ -9,7 +10,7 @@ namespace Sydneys_Strung_Creations.Models
         public string JewleryTemplateURL { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
-        public string Category { get; set; }
+        public JewleryCategory JewleryCategory { get; set; }
         public float BasePrice { get; set; }
     }
 }

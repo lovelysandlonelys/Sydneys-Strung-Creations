@@ -7,6 +7,5 @@
         Necklace,
         Ring,
         Set
-
     }
 }
