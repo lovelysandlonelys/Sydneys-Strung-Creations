@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Sydneys_Strung_Creations.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,10 +17,11 @@ namespace Sydneys_Strung_Creations.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JewleryPictureURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JewleryPicturePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    JewleryCategory = table.Column<int>(type: "int", nullable: false)
+                    JewleryCategory = table.Column<int>(type: "int", nullable: false),
+                    FocalColor = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +34,7 @@ namespace Sydneys_Strung_Creations.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    JewleryTemplateURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    JewleryTemplatePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     JewleryCategory = table.Column<int>(type: "int", nullable: false),
@@ -41,6 +43,26 @@ namespace Sydneys_Strung_Creations.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_jewlery_template", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "order_forms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HardwareType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FocalColor = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Length = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AdditionalNotes = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_order_forms", x => x.Id);
                 });
         }
 
@@ -52,6 +74,9 @@ namespace Sydneys_Strung_Creations.Migrations
 
             migrationBuilder.DropTable(
                 name: "jewlery_template");
+
+            migrationBuilder.DropTable(
+                name: "order_forms");
         }
     }
 }
