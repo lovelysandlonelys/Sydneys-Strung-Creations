@@ -1,29 +1,69 @@
 @{
-    ViewData["Title"] = "About Sydneys Strung Creations";
+    ViewData["Title"] = "About Sydney's Strung Creations";
 }
 
 <div class="container">
     <div class="about-header">
         <h1>@ViewData["Title"]</h1>
-        <p>Welcome to <thead> Sydney Strung Creations</thead> Jewelry Store, where beauty meets elegance.</p>
+        <p>Welcome to Sydney Strung Creations Jewelry Store, where beauty meets elegance.</p>
     </div>
 
     <div class="about-content">
-        <h2>Our Story</h2>
-        <p>Founded in 2024.. SOME CONTENT HERE</p>
+        <div class="about-image-text">
+            <figure class="about-figure">
+                <img src="~/images/founder.jpg" alt="Sydney" class="about-image">
+                <figcaption class="image-caption">Sydney, the creative mind behind Strung Creations and her sister, Savannah, in the woods.</figcaption>
+            </figure>
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>Founded in 2024, Sydney started making jewelry in high school using modified kandi patterns. From there, she found a passion for creating pieces she couldn’t find elsewhere. At first, she made things for herself, then for her sister and friends. After much pestering, she decided to create a shop. Inspired by color schemes, characters, or concepts, she aims to create jewelry that sparks the same joy in others that the creation does in herself.</p>
 
-        <h2>Our Mission</h2>
-        <p>Our mission is to provide customers with beautiful, high-quality jewelry that can be treasured for a lifetime. We strive to offer impeccable customer service, with fast shipping and easy returns, to ensure a satisfying shopping experience.</p>
+                <h2>Our Mission</h2>
+                <p>Our mission is to provide customers with beautiful, high-quality jewelry that can be treasured for a lifetime. We strive to offer impeccable customer service, with fast shipping and easy returns, to ensure a satisfying shopping experience.</p>
 
-        <h2>Our Values</h2>
-        <ul>
-            <li>Quality: Only the finest materials are used to craft each piece.</li>
-            <li>Customer Satisfaction: We prioritize your happiness with each purchase.</li>
-            <li>Craftsmanship: Every piece is handmade with great care and precision.</li>
-            <li>Integrity: We believe in ethical business practices and fair pricing.</li>
-        </ul>
+                <h2>Our Values</h2>
+                <ul>
+                    <li>Customer Satisfaction: We prioritize your happiness with each purchase.</li>
+                    <li>Craftsmanship: Every piece is handmade with great care and precision.</li>
+                    <li>Integrity: We believe in ethical business practices and fair pricing.</li>
+                </ul>
 
-        <h2>Contact Us</h2>
-        <p>If you have any questions or would like to learn more about our products, feel free to reach out to us at <a href="mailto:sydneystrungcreations@outlook.com">sydneystrungcreations@outlook.com</a></p>
+                <h2>Contact Us</h2>
+                <p>If you have any questions or would like to learn more about our products, feel free to reach out to us at <a href="mailto:sydneystrungcreations@outlook.com">sydneystrungcreations@outlook.com</a></p>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+    .about-image-text {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .about-figure {
+        width: 40%;
+        text-align: center;
+    }
+
+    .about-image {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .image-caption {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 5px;
+    }
+
+    .about-text {
+        width: 55%;
+    }
+
+    .about-content h2 {
+        margin-top: 20px;
+    }
+</style>
