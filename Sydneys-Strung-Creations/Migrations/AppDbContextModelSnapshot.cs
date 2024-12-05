@@ -329,7 +329,8 @@ namespace Sydneys_Strung_Creations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("order_forms");
-=======
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
