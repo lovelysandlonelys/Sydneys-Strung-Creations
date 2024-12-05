@@ -1,0 +1,96 @@
+﻿@using Sydneys_Strung_Creations.Data.Enums
+@model gallary_listing
+
+@{
+    ViewData["Title"] = "Add New Gallery Listing";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>
+                Add New Gallery Listing
+            </h1>
+            <div class="col-md-8 offset-2">
+
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group text-center d-flex justify-content-center align-items-center">
+                        <img id="JewleryPicturePreview" src="#" alt="Preview"
+                             style="width: 150px; height: 150px; object-fit: cover; display: none;" />
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="JewleryPicturePath" class="control-label"></label>
+                        <input asp-for="JewleryPicturePath" class="form-control" />
+                        <span asp-validation-for="JewleryPicturePath" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ProductDescription" class="control-label"></label>
+                        <input asp-for="ProductDescription" class="form-control" />
+                        <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="JewleryCategory" class="control-label"></label>
+                        <select asp-for="JewleryCategory" class="form-control">
+                            @foreach (var category in Enum.GetValues(typeof(JewleryCategory)))
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                        <span asp-validation-for="JewleryCategory" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="FocalColor" class="control-label"></label>
+                        <select asp-for="FocalColor" class="form-control">
+                            @foreach (var color in Enum.GetValues(typeof(FocalColor)))
+                            {
+                                <option value="@color">@color</option>
+                            }
+                        </select>
+                        <span asp-validation-for="FocalColor" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+                </form>
+
+            </div>
+        </p>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        // Event listener to preview the image
+        document.getElementById('JewleryPicturePath').addEventListener('input', function () {
+            var output = document.getElementById('JewleryPicturePreview');
+            var path = this.value.trim();
+
+            if (path) {
+                // Adjust the path for the wwwroot directory
+                var relativePath = '/images/' + path; 
+                output.src = relativePath;
+                output.style.display = 'block'; // Show the image
+            } else {
+                output.src = '#';
+                output.style.display = 'none'; // Hide the image
+            }
+        });
+    </script>
+}

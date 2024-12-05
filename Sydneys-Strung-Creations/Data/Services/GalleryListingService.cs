@@ -14,7 +14,8 @@ namespace Sydneys_Strung_Creations.Data.Services
 
         public void Add(gallary_listing listing)
         {
-            throw new NotImplementedException();
+            _context.gallary_listing.Add(listing);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
