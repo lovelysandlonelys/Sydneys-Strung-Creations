@@ -37,7 +37,6 @@ app.UseRouting();
 app.UseAuthentication();  // Make sure this is before UseAuthorization
 app.UseAuthorization();
 
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
