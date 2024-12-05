@@ -57,41 +57,50 @@ namespace Sydneys_Strung_Creations.Controllers
         }
 
 
-        public IActionResult Register() => View(new RegisterVM());
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterVM registerVM)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterVM model)
         {
-            if (!ModelState.IsValid) return View(registerVM);
-
-            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                TempData["Error"] = "This email address is already in use";
-                return View(registerVM);
+                var user = new ApplicationUser
+                {
+                    UserName = model.EmailAddress,
+                    Email = model.EmailAddress,
+                    FullName = model.FullName
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    // Sign the user in after registration
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
 
-            var newUser = new ApplicationUser()
-            {
-                FullName = registerVM.FullName,
-                Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress
-            };
-            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+            // If we get here, something went wrong
+            TempData["Error"] = "Something went wrong, please try again.";
+            return View(model);
 
-            if (newUserResponse.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
-                return View("RegisterCompleted");
-            }
-
-            // If the user creation failed, display an error message
-            TempData["Error"] = "An error occurred while creating the account.";
-            return View(registerVM);
 
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
