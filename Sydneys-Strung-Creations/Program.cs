@@ -14,16 +14,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString")));
 
 // Configure Identity Services
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 6;
-})
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
+// Add Identity
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 //Services Configuration
 builder.Services.AddScoped<IGalleryListingService, GalleryListingService>();
@@ -49,5 +43,6 @@ app.MapControllerRoute(
 
 // Seed the database
 AppDbInitalizer.Seed(app);
+AppDbInitalizer.SeedUsersAndRolesAsync(app);
 
 app.Run();
