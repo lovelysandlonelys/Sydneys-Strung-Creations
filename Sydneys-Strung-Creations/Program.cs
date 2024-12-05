@@ -34,8 +34,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();  // Make sure this is before UseAuthorization
 app.UseAuthorization();
-app.UseAuthentication();
+
 
 app.MapControllerRoute(
     name: "default",
