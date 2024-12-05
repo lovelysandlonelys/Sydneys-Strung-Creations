@@ -80,9 +80,15 @@ namespace Sydneys_Strung_Creations.Controllers
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
             if (newUserResponse.Succeeded)
+            {
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+                return View("RegisterCompleted");
+            }
 
-            return View("RegisterCompleted");
+            // If the user creation failed, display an error message
+            TempData["Error"] = "An error occurred while creating the account.";
+            return View(registerVM);
+
         }
 
         [HttpPost]

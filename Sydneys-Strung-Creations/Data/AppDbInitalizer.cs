@@ -392,8 +392,11 @@ namespace Sydneys_Strung_Creations.Data
                         Email = adminUserEmail,
                         EmailConfirmed = true
                     };
-                    await userManager.CreateAsync(newAdminUser, "Password");
-                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                    var createResult = await userManager.CreateAsync(newAdminUser, "Password");
+                    if (createResult.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                    }
                 }
 
 
@@ -409,8 +412,11 @@ namespace Sydneys_Strung_Creations.Data
                         Email = appUserEmail,
                         EmailConfirmed = true
                     };
-                    await userManager.CreateAsync(newAppUser, "Password");
-                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                    var createResult = await userManager.CreateAsync(newAppUser, "Password");
+                    if (createResult.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                    }
                 }
             }
         }

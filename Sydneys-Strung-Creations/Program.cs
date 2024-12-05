@@ -43,6 +43,15 @@ app.MapControllerRoute(
 
 // Seed the database
 AppDbInitalizer.Seed(app);
-AppDbInitalizer.SeedUsersAndRolesAsync(app);
+AppDbInitalizer.SeedUsersAndRolesAsync(app).Wait();
+// Seed admin user
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var seeder = new ApplicationSeeder(userManager, roleManager);
+    await seeder.SeedAdminUserAsync();
+}
 
 app.Run();
