@@ -1,0 +1,107 @@
+﻿@* Define Model *@
+@model IEnumerable<gallary_listing>
+
+@* Define Title *@
+@{
+    ViewData["Title"] = "Gallery of All Jewelry";
+}
+
+@* Write Code *@
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1>Gallery of All Jewelry</h1>
+    </div>
+</div>
+
+<!-- Filter Options -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <label for="categoryFilter" class="form-label"><strong>Filter by Category</strong></label>
+        <select id="categoryFilter" class="form-select">
+            <option value="">All Categories</option>
+            @foreach (var category in Model.Select(m => m.JewleryCategory).Distinct())
+            {
+                <option value="@category">@category</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-6">
+        <label for="colorFilter" class="form-label"><strong>Filter by Focal Color</strong></label>
+        <select id="colorFilter" class="form-select">
+            <option value="">All Colors</option>
+            @foreach (var color in Model.Select(m => m.FocalColor).Distinct())
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+    </div>
+</div>
+
+<!-- Gallery of Jewelry -->
+<div class="row" id="gallery">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 text-center mb-4 jewelry-item"
+             data-category="@item.JewleryCategory"
+             data-color="@item.FocalColor">
+            <!-- Icon and Name -->
+            <div>
+                <img src="@Url.Content(item.JewleryPicturePath)"
+                     alt="@item.ProductName"
+                     style="width: 200px; height: 200px; object-fit: contain; cursor: pointer; margin-bottom: 10px;"
+                     data-bs-toggle="collapse"
+                     data-bs-target="#details-@item.ProductName.Replace(" ", "-")"
+                     aria-expanded="false"
+                     aria-controls="details-@item.ProductName.Replace(" ", "-")" />
+                <h5>@item.ProductName</h5>
+            </div>
+            <!-- Expandable Details -->
+            <div id="details-@item.ProductName.Replace(" ", "-")" class="collapse">
+                <p class="mt-2">@item.ProductDescription</p>
+                <p><strong>Category:</strong> @item.JewleryCategory</p>
+            </div>
+        </div>
+    }
+</div>
+
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div style="position: fixed; right: 25px; bottom: 25px;" class="text-white">
+        <a asp-controller="GalleryListing" asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle">Add</i>
+        </a>
+    </div>
+}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryFilter = document.getElementById('categoryFilter');
+        const colorFilter = document.getElementById('colorFilter');
+        const galleryItems = document.querySelectorAll('.jewelry-item');
+
+        function filterGallery() {
+            const selectedCategory = categoryFilter.value.toLowerCase();
+            const selectedColor = colorFilter.value.toLowerCase();
+
+            galleryItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category').toLowerCase();
+                const itemColor = item.getAttribute('data-color').toLowerCase();
+
+                const matchesCategory = !selectedCategory || itemCategory === selectedCategory;
+                const matchesColor = !selectedColor || itemColor === selectedColor;
+
+                // Show or hide based on filters
+                if (matchesCategory && matchesColor) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Attach event listeners
+        categoryFilter.addEventListener('change', filterGallery);
+        colorFilter.addEventListener('change', filterGallery);
+    });
+</script>
