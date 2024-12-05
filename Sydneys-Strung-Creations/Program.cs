@@ -6,7 +6,6 @@ using Sydneys_Strung_Creations.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddControllersWithViews();
 
 // Configure Entity Framework and SQL Server
@@ -24,7 +23,6 @@ builder.Services.AddScoped<IGalleryListingService, GalleryListingService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -41,7 +39,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// Seed the database
+// seeds database
 AppDbInitalizer.Seed(app);
 AppDbInitalizer.SeedUsersAndRolesAsync(app).Wait();
 // Seed admin user

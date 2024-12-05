@@ -1,0 +1,101 @@
+﻿@model order_form
+<div class="order-form-container">
+    <div class="product-image-container">
+        <img id="product-image" src="" alt="Selected Jewelry" />
+    </div>
+    <form class="order-form" asp-action="SubmitOrder" method="post">
+        <h1>Custom Jewelry Order Form</h1>
+
+        <label for="ProductName">Select Jewelry</label>
+        <select id="ProductName" asp-for="ProductName" onchange="updateImage()">
+            @foreach (var product in ViewBag.Products)
+            {
+                <option value="@product.ProductName">@product.ProductName</option>
+            }
+        </select>
+
+        <label for="HardwareType">Hardware Type</label>
+        <select id="HardwareType" asp-for="HardwareType">
+            <option>Gold</option>
+            <option>Silver</option>
+            <option>Rose Gold</option>
+        </select>
+
+        <label for="FocalColor">Focal Color</label>
+        <input type="text" asp-for="FocalColor" />
+
+        <label for="Length">Length (inches)</label>
+        <input type="text" asp-for="Length" />
+
+        <label for="CustomerName">Your Name</label>
+        <input type="text" asp-for="CustomerName" />
+
+        <label for="CustomerEmail">Your Email</label>
+        <input type="email" asp-for="CustomerEmail" />
+
+        <label for="AdditionalNotes">Additional Notes</label>
+        <textarea asp-for="AdditionalNotes"></textarea>
+
+        <button type="submit">Submit Order</button>
+    </form>
+</div>
+
+<script>
+    const productImages = {
+        "Black and Red Cross Bracelet": "/images/black-red-cross-bracelet.jpg",
+        "Black and Red Heart Bracelet": "/images/black-red-heart-bracelet.jpg",
+        "Blue Bar Bracelet": "/images/blue-bar-bracelet.jpg",
+        "Blue Bird Necklace": "/images/blue-bird-necklace.jpg",
+        //"Blue Bird Necklace 2": "/images/blue-bird-necklace-2.jpg",
+        "Blue Cross Bracelets": "/images/blue-corss-bracelet-set.jpg",
+        "Blue Fish Necklace": "/images/blue-fish-necklace.jpg",
+        "Pink Circle Bracelet and Blue Wave Bracelet": "/images/blue-pink-bracelet-set.jpg",
+        "Blue Bird Necklace": "/images/blue-smile-necklace.jpg",
+        "Blue Swirl Necklace": "/images/blue-swirl-necklace.jpg",
+        "Teal and White Cross Bar Bracelet": "/images/blue-white-cross-bar-bracelet.jpg",
+        "Brown Flower Necklace": "/images/brown-flower-necklace.jpg",
+        "Soup Set": "/images/bunny-soup-set.jpg",
+        "Character Inspired Bracelets": "/images/character-bracelet-set.jpg",
+        "Pink and Purple Braclet Set": "/images/dangle-braclet-set.jpg",
+        "Dark Blue Flower and Swirl Necklace": "/images/dark-blue-necklace.jpg",
+        "Gold Bar Bracelet": "/images/gold-bar-bracelet.jpg",
+        "Gold Flower Dangle Earrings": "/images/gold-dangle-earrings.jpg",
+        "Chain Loop Bracelet": "/images/gold-red-chain-bracelet.jpg",
+        "Gold and Red Heart Bracelet": "/images/gold-red-heart-bracelet.jpg",
+        "Roses and Pearls Necklace": "/images/gold-rose-necklace.jpg",
+        "Green Sword Necklace": "/images/green-sword-necklace.jpg",
+        //"Green Sword Necklace 2": "/images/green-sword-necklace-2.jpg",
+        "Lillypad Necklace": "/images/lillypad-necklace.jpg",
+        //"Lilypad Necklace 2": "/images/lillypad-necklace-2.jpg",
+        "Hatsume Miku Necklace": "/images/miku-necklace.jpg",
+        "Orange Fish Necklace": "/images/orange-fish-necklace.jpg",
+        "Sunrise Necklace Set": "/images/orange-set.jpg",
+        "Lillypad Bracelet": "/images/lillypad-necklace.jpg",
+        "Pink Bell Fower Set": "/images/pink-flower-dangle-set.jpg",
+        "Pink Ladder Necklace": "/images/pink-grate-necklace.jpg",
+        "Pink Dangle Bracelet": "/images/pink-green-flower-necklace.jpg",
+        "Pink Green Flower Necklace": "/images/pink-green-flower-necklace.jpg",
+        "Babydoll Braclet Set": "/images/pink-necklace-ring-set.jpg",
+        "Pink, Red, and Teal Set": "/images/pink-teal-set.jpg",
+        "Purple Pinecone Necklace": "/images/purple-acorn-necklace.jpg",
+        //"Purple Acorn Necklace 2": "/images/purple-acorn-necklace-2.jpg",
+        "Purple Gold Necklace": "/images/purple-gold-necklace.jpg",
+        "Purple Ladder Necklace": "/images/purple-grate-necklace.jpg",
+        //"Purple Grate Necklace 2": "/images/purple-grate-necklace-2.jpg",
+        "Red Black Heart Bracelet": "/images/red-black-heart-bracelet.jpg",
+        "Saftey Pin Necklace": "/images/saftey-pin-necklace.jpg",
+        "Star Dangle Bracelet": "/images/star-bracelet.jpg",
+        "Clear Star Dangle Bracelet": "/images/star-dangle-bracelet.jpg",
+        "Star Dangle Necklace": "/images/star-dangle-necklace.jpg",
+        "Vampire Necklace": "/images/red-black-heart-necklace.jpg",
+    };
+
+
+    function updateImage() {
+        const selectedProduct = document.getElementById("ProductName").value;
+        const productImage = productImages[selectedProduct] || "/images/default.jpg"; // Fallback image
+        const imageElement = document.getElementById("product-image");
+        imageElement.src = productImage;
+        imageElement.alt = selectedProduct;
+    }
+</script>
