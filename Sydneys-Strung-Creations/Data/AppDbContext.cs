@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sydneys_Strung_Creations.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Sydneys_Strung_Creations.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext:IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
