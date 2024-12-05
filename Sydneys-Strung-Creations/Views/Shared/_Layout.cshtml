@@ -27,9 +27,6 @@
                             <a class="nav-link text-light nav-hover" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light nav-hover" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-light nav-hover" asp-area="" asp-controller="GalleryListing" asp-action="Index">Gallery</a>
                         </li>
                         <li class="nav-item">
@@ -41,6 +38,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-light nav-hover" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+                    </ul>
+
+                    <!-- Add Login/Register Buttons here on the right side -->
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-action="Logout" asp-controller="Account" class="nav-link text-dark p-0">
+                                    <button type="submit" class="btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

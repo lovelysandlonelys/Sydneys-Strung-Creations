@@ -1,0 +1,45 @@
+﻿@model Sydneys_Strung_Creations.Models.ContactViewModel
+
+@{
+    Layout = "_Layout"; // This will use the shared _Layout.cshtml file
+}
+
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Message">Message</label>
+        <textarea class="form-control" id="Message" name="Message" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Message</button>
+</form>
+
+<hr />
+
+<h4>Our Contact Info</h4>
+<p>
+    <strong>Email:</strong> sydneysstrungcreations@outlook.com<br />
+    <strong>Phone:</strong> (361) 999 - 9999<br />
+</p>
